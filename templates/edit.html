@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Editar usuario</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="page">
+  <header class="site-header container">
+    <div class="brand">
+      <strong>Users</strong>
+      <span class="muted">CRUD</span>
+    </div>
+    <nav class="nav-actions">
+      <a href="/" class="btn-ghost">Volver</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Editar usuario #{{.User.ID}}</h2>
+      <form action="/users/edit/{{.User.ID}}" method="post" class="form-row">
+        <input type="text" name="name" value="{{.User.Username}}" required aria-label="username">
+        <input type="password" name="password" placeholder="Nueva contraseña" required aria-label="password">
+        <button class="btn" type="submit">Actualizar</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="container small-muted footer">Hecho con Go • Mat1520 :D <a href="https://github.com/mat1520">GitHub</a></footer>
+</div>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit User</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Edit User</h1>
+    <form action="/users/edit/{{.User.ID}}" method="post" class="form-row">
+        <input type="text" name="name" value="{{.User.Username}}" required>
+        <input type="password" name="password" placeholder="New password" required>
+        <button type="submit">Update</button>
+    </form>
+    <p><a href="/">Back</a></p>
+</div>
+</body>
+</html>

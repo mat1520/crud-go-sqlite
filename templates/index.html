@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>User CRUD</title>
+        <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="page">
+    <header class="site-header container">
+        <div class="brand">
+            <strong>Users</strong>
+            <span class="muted">CRUD</span>
+        </div>
+        <nav class="nav-actions">
+            <span class="status">Lista de usuarios</span>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="card">
+            <h2>Añadir usuario</h2>
+            <form action="/users" method="post" class="form-row">
+                <input type="text" name="name" placeholder="Nombre de usuario" required aria-label="username">
+                <input type="password" name="password" placeholder="Contraseña" required aria-label="password">
+                <button class="btn" type="submit">Añadir</button>
+            </form>
+            <p class="small-muted">Nota: por ahora se guardan contraseñas sin hash — actualiza a bcrypt cuando puedas.</p>
+        </section>
+
+        <section class="card">
+            <h2>Usuarios</h2>
+            <div class="table-wrap">
+                <table class="users-table" role="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Usuario</th>
+                            <th>Contraseña (hash)</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{range .Users}}
+                        <tr>
+                            <td data-label="ID">{{.ID}}</td>
+                            <td data-label="Usuario">{{.Username}}</td>
+                            <td data-label="Contraseña">{{.PasswordHash}}</td>
+                            <td data-label="Acciones" class="actions">
+                                <a class="btn-ghost small" href="/users/edit/{{.ID}}" title="Editar">
+                                    <!-- pencil svg en cd -->
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1.003 1.003 0 0 0 0-1.42L18.37 3.29a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.83z" fill="currentColor"/></svg>
+                                </a>
+                                <form action="/users/delete/{{.ID}}" method="post" onsubmit="return confirm('Eliminar usuario #{{.ID}}?');">
+                                    <button class="btn-danger small" type="submit" title="Eliminar">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {{end}}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer class="container small-muted footer">Hecho con Go • Local</footer>
+</div>
+
+</body>
+</html>
